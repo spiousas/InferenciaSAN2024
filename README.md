@@ -10,6 +10,10 @@ Ignacio Spiousas (UdeSA/Conicet)
 <img align="left" alt="GitHub" width="18px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/github.svg" />
 </a>
 
+Leandro Casiraghi (UdeSA/Conicet)
+
+Lucas Drucaroff (UdeSA/Conicet)
+
 ### Fechas 📆
 
 El curso se dictará los días **23 y 24 de octubre de 2024** de 9 a 18 hs. La
