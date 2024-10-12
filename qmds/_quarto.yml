@@ -1,0 +1,56 @@
+project:
+  type: book
+  output-dir: ../docs
+
+lang: es
+
+book:
+  title: "Diseños experimentales y cuasiexperimentales"
+  author:
+  - name: Ignacio Spiousas
+    orcid: 0000-0002-0283-4696
+    email: ispiousas@udesa.edu.ar
+    affiliations:
+      - name: Conicet/UdeSA
+  - name: Ismael Calandri
+    orcid: 0000-0002-6983-1430
+    email: icalandri@fleni.org.ar 
+    affiliations:
+      - name: Fleni/UdeSA
+  reader-mode: true
+
+  page-footer:
+    left: |
+      Diseños experimentales y cuasiexperimentales - Ignacio Spiousas.
+    right: |
+      Este libro fue creado con <a href="https://quarto.org/">Quarto</a>.
+  chapters:
+    - index.qmd
+    - intro_R.qmd
+    - intro_stat.qmd
+    - potential_outcomes.qmd
+    - dags.qmd
+    - exp_aleatorios.qmd
+    - references.qmd
+
+bibliography: references.bib
+
+website:
+  favicon: ../imgs/icon.png
+  
+reference-location: margin
+citation-location: margin
+caption-location: margin
+
+format:
+  html:
+    theme: cosmo
+    code-fold: show
+    code-summary: "Ver el código"
+  pdf:
+    documentclass: scrreprt
+
+editor: source
+
+toc-title: Índice
+toc-location: left

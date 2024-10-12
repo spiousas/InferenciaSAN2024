@@ -1,0 +1,249 @@
+# Repaso de probabilidad y estadística {#sec-intro_stat}
+
+```{r}
+#| echo: false
+
+source("../R/_common.R")
+```
+
+$$
+X \sim \mathcal{N}(1, 3^2)
+$$
+
+$$
+\alpha = 0.05
+$$
+
+$$
+\begin{array}
+_\bar{x} &=& 1.424871 \\
+S &=& 2.917996
+\end{array}
+$$
+
+$$
+\begin{array}
+_H_0 &:& \mu = 0 \\
+H_1 &:& \mu \neq 0
+\end{array}
+$$
+
+$$
+Z = \frac{\bar X-\mu}{\sqrt{\sigma^2/n}} \sim \mathcal{N}(0,1)
+$$
+
+$$
+Z_{H_0} = \frac{\bar X}{\sqrt{\sigma^2/n}} \sim \mathcal{N}(0,1)
+$$
+
+$$
+\begin{array}
+_\bar{x} &=& 1.424871 \\
+\frac{\bar{x}-0}{\sqrt{3^2/20}} &=& 2.124073
+\end{array}
+$$
+
+$$
+\begin{array}
+_p_{valor} &=& P(|Z| \geq |z_{\bar{x}}| \: \: |H_0) \\
+ &=& P(Z \geq |z_{\bar{x}}| \: \: |H_0) + P(Z \leq -|z_{\bar{x}}| \: \: |H_0) \\
+ &=& 2 P(Z \leq -|z_{\bar{x}}| \: \: |H_0)
+\end{array}
+$$
+
+$$
+z_{\bar{x}} = \frac{\bar{x}-0}{\sqrt{3^2/20}} = 2.124073
+$$
+
+$$
+\begin{array}
+_p_{valor} &=& P(|Z| \geq |z_{\bar{x}}| \: \: |H_0) \\
+&=& 2 P(Z \leq -|z_{\bar{x}}| \: \: |H_0) \\
+&=& 2 \times 0.01683202 \\
+&=& 0.03366405
+\end{array}
+$$
+
+$$
+\bar{x} = 0.006372746
+$$
+
+$$
+\begin{array}
+_p_{valor} &=& P(|Z| \geq |z_{\bar{x}}| \: \: |H_0) \\
+&=& 2 P(Z \leq -|z_{\bar{x}}| \: \: |H_0) \\
+&=& 2 \times 0.4962101 \\
+&=& 0.9924203
+\end{array}
+$$
+
+$$
+potencia = P(rechazar \, H_0 | H_0 \, falsa)
+$$
+
+$$
+
+\begin{array}
+_potencia &=& P(rechazar \, H_0 | H_1) \\
+&=& P\left( \left| \frac{\bar{X}}{\sqrt{\sigma^2/n}} \right| \geq Z_{1-\alpha/2}  \right)\\
+&=& 1 - P\left( Z \leq Z_{\alpha/2} + \frac{\mu}{\sqrt{\sigma^2/n}} \right) - P\left( Z \leq Z_{1-\alpha/2} + \frac{\mu}{\sqrt{\sigma^2/n}} \right) \\
+\end{array}
+$$
+
+$$
+\frac{\bar{X} - \mu}{\sqrt{\sigma^2/n}} \sim \mathcal{N}(0,1)
+$$
+
+$$
+(n-1)\frac{S^2}{\sigma^2} \sim \chi^2_{n-1}
+$$
+
+$$
+\begin{array}
+_U &\sim& \mathcal{N}(0,1) \\
+V &\sim& \chi^2_{n} \\
+\frac{U}{\sqrt{V/n}} &\sim& t_{n}
+\end{array}
+$$
+
+$$
+\frac{\bar{X} - \mu}{\sqrt{S^2/n}} \sim t_{n-1}
+$$
+
+$$
+\begin{array}
+_\bar{x} &=& 1.424871 \\
+\frac{\bar{x}-0}{\sqrt{S^2/20}} &=& 2.18375
+\end{array}
+$$
+
+$$
+\begin{array}
+_p_{valor} &=& P(|T| \geq |t_{\bar{x}}| \: \: |H_0) \\
+&=& 2 P(T \leq -|t_{\bar{x}}| \: \: |H_0) \\
+&=& 2 \times 0.0208614 \\
+&=& 0.0417228
+\end{array}
+$$
+
+$$
+\frac{\bar{X}-\mu}{\sqrt{\sigma^2/n}}  \xrightarrow{\mathcal{D}} \mathcal{N}(0,1)
+$$
+
+$$
+V \sim \mathcal{E}(\lambda=1)
+$$
+
+$$
+E(V) = \lambda
+$$
+
+$$
+\begin{array}
+_\bar{v} &=& 1.036848 \\
+S_v &=& 1.084248
+\end{array}
+$$
+
+$$
+\begin{array}
+_\mu_{\bar{u}_{n=2000}} &=& 0.1 \\
+\sigma^2_{\bar{u}_{n=2000}} &=& \sigma^2/n \\
+&=& 9/2000 \\ 
+&=& 0.0045
+\end{array}
+$$
+
+$$
+\begin{array}
+_\mu_{\bar{u}_{n=100}} &=& 0.1 \\
+\sigma^2_{\bar{u}_{n=100}} &=& \sigma^2/n \\
+&=& 9/100 \\ 
+&=& 0.09
+\end{array}
+$$
+
+$$
+U = \mathcal{N}(0.1,3)
+$$
+
+$$
+\hat{\beta}_T - \beta_T = 6.12 - 5 = 1.12
+$$
+
+$$
+\hat{\beta}_T = \bar{Y}_T - \bar{Y}_C = 8.005
+$$
+
+$$
+\hat{\beta}_T = (\bar{Y}_T - \bar{Y}_C) - \hat{\beta}_X \times (\bar{X}_T - \bar{X}_C)= 5.063
+$$
+
+$$
+\rho_{XY} = 0.909
+$$
+
+$$
+\sigma_{\epsilon}^2 ANOVA = 4.897
+$$
+
+$$
+\sigma_{\epsilon}^2 ANCOVA = (1-\rho_{XY}^2) \sigma_{\epsilon}^2 ANOVA = 4.897 \times (1-0.909^2) = 0.8507019
+$$
+
+$$
+model_1: Y_i = \alpha +\beta_X X_i + \epsilon_i
+$$
+
+$$
+model_2: Y_i = \alpha + \beta_X X_i + \beta_C C_i + \epsilon_i
+$$
+
+```{r}
+tb <- tibble(
+  C = rnorm(10000),
+  X = 1 + 1*C + rnorm(10000),
+  Y = 1 + 2*C + 2*X + rnorm(10000)
+)
+
+library(stargazer)
+
+tb  %>% ggplot(aes(x = X,
+           y = Y)) +
+  geom_point(alpha = .2) +
+  geom_smooth(color = "red", method = "lm", se = F) +
+  theme_bw()
+
+  
+lm_1 <- lm(Y ~ X, tb)
+lm_2 <- lm(Y ~ X + C, tb)
+
+stargazer(lm_1,lm_2, type = "text", 
+          column.labels = c("Sin controlar", 
+                            "Controlando por C")) %>%
+  knitr::kable()
+```
+
+$$
+Y_i = \alpha + \beta_D D_i + \beta_I I_i + \epsilon_i
+$$
+
+$$
+lm_1: talent_i = \alpha + \beta_{beauty} beauty_i + \epsilon_i
+$$
+
+$$
+lm_2: talent_i = \alpha + \beta_{beauty} beauty_i + \beta_{star} star_i + \epsilon_i
+$$
+
+$$
+lm_1: wage_i = \alpha + \beta_{female} female_i + \epsilon_i
+$$
+
+$$
+lm_2: wage_i = \alpha + \beta_{female} female_i + \beta_{occupation} occupation_i + \epsilon_i
+$$
+
+$$
+lm_2: wage_i = \alpha + \beta_{female} female_i + \beta_{occupation} occupation_i + \beta_{ability} ability_i+ \epsilon_i
+$$
