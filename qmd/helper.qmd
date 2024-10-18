@@ -1,0 +1,93 @@
+---
+title: "Cositas adicionales"
+format: html
+---
+
+## Quarto
+
+$$
+X_i \sim Ber(p)
+$$
+
+$$
+\operatorname{E}\left[X_i\right]=p
+$$
+
+$$
+\hat{p}_n = \bar{x_i} = \frac{1}{n} \sum_{i=1}^n x_i
+$$
+
+$$
+\operatorname{P}[X=x]= 
+\begin{cases} 1-p & \mbox {si }x=0 \\
+    p & \mbox {si }x=1
+\end{cases}
+$$
+
+$$
+p ~~ \approx ~~ \hat p \pm z_{alpha}  \sqrt{\frac{\hat{p} (1 - \hat{p} )}{n}} \\
+$$
+
+$$
+p ~~ \approx ~~ \hat p \pm 1.96  \sqrt{\frac{\hat{p} (1 - \hat{p} )}{n}}
+$$
+
+$$
+ \bar{X_i} \approx \mathcal{N}(\mu, \sigma^2/n) = \mathcal{N}(p, p(1-p)/n)
+$$
+
+$$
+ \bar{X_i} \sim \mathcal{N}(\mu, \sigma^2/n)
+$$
+
+$$
+\mu  ~~ \approx ~~ \hat{\mu} \pm z_{alpha}  \sqrt{\frac{\hat{\sigma}}{n}} \\
+$$
+
+$$
+ X_i \sim \mathcal{N}(\mu = 12, \sigma^2 = 4^2)
+$$
+
+$$
+\bar{X_i} \sim \mathcal{N}(\mu = 10, \sigma^2 = 4^2/12) = \mathcal{N}(\mu = 10, \sigma^2 = 4/3)
+$$
+
+$$
+P(\bar{X}>\bar{x}_{obs})
+$$
+
+$$
+\mu  ~~ \approx ~~ \hat{\mu} \pm 1.96  \sqrt{\frac{\hat{\sigma}^2}{n}} =  \hat{\mu} \pm {\frac{1.96}{\sqrt{n}}} \hat{\sigma} \\
+$$
+
+$$
+z_{obs} = \frac{\bar{x}_{obs}-\mu_{H0}}{\sigma_{H0}} = \frac{\bar{x}_{obs}-10}{4/\sqrt{12}}
+$$
+
+$$
+P(Z>z_{obs})
+$$
+
+$$
+S^2 = \frac{\sum_{i=1}^n (x_i - \overline{x})^2}{n-1}
+$$
+
+$$
+P(T>t_{obs})
+$$
+
+$$
+P(|T|>t_{obs})
+$$
+
+$$
+t_{obs} = \frac{\overline{x}_{obs}-\mu_{H0}}{S_{obs}/\sqrt{n}} = \frac{\overline{x}_{obs}-10}{S_{obs}/\sqrt{12}}
+$$
+
+$$
+S^2 = \frac{\sum_{i=1}^n (x_i - \overline{x})^2}{n-1}
+$$
+
+$$
+\frac{1}{n−1} \sum_{i=1}^n (X_i−\overline{X})(Y_i−\overline{Y})
+$$
