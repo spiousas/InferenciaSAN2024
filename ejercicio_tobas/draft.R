@@ -1,16 +1,14 @@
 # Practica de tidyverse usando los datos del paper de Science Advances
 
 # Objetivos: 1) estudiar la duración de los eventos de sueño registrados
-# 2) Filtrar "outliers" en los datos
-# 3) Determinar una cantidad mínima de datos para incluir o no a un participante
-# 4) Graficar los datos promediados por sujeto para cada grupo
-# 5) estudiar la relación entre edad y género con la duración de sueño
+# 2) Filtrar "outliers" en los datos (pensar en qué categorías/cuándo filtrar)
+# 3) Hacer una tabla resumen de los datos demográficos de los grupos (n, género y edad)
+# 3) Graficar los datos promediados por sujeto para cada grupo y hacer una tabla
+# con los valores de promedio y error estándar
+# 4) estudiar la relación entre edad y género con la duración de sueño
 
+pacman::p_load(dplyr, readr, ggplot2, osfr)
 # 1) descargar los datos de OSF ####
-install.packages("osfr")
-library(tidyverse)
-library(osfr)
-
 # obtengo info del repo de OSF:
 toba_repo <- osf_retrieve_node("https://osf.io/nxtvk/")
 
@@ -39,44 +37,29 @@ toba_sleep <- sleep %>%
 head(toba_sleep)
 rm(toba_repo, toba_files, sleep, demog)
 
-# 3) opero con los datos ####
-# Hay outliers?
-library(Routliers)
-sleep_outs <- outliers_mad(toba_sleep$Duration, threshold = 2.5) # recomendación de Leys et al.
-sleep_outs
+# Tabla resumen demográfico
+knitr::kable(toba_sleep %>% group_by(ID, Gender, Age, Group) %>%
+       summarise() %>%
+       mutate(female = if_else(Gender == "F", 1,0)) %>%
+       group_by(Group) %>%
+       summarise(n = n(),
+            Mean_Age = round(mean(Age),1),
+            Female_perc = round(sum(female)/n*100)))
 
-# Puedo filtrar todos los datos fuera de los límites
-toba_sleep_filtered <- toba_sleep %>%
-  filter(Duration >= sleep_outs[3] &
-           Duration <= sleep_outs[4])
+# 3) opero con los datos ####
 
 # resumo la base de datos agrupando por sujetos
-toba_summ <- toba_sleep_filtered %>%
+toba_summ <- toba_sleep %>%
   group_by(ID, Gender, Age, Group) %>%
-  summarise(Duration = mean(Duration),
-            n = n())
-head(toba_summ)
-
-# Hay outliers de edad?
-age_outs <- outliers_mad(toba_summ$Age, threshold = 2.5) # recomendación de Leys et al.
-
-# Los filtro
-toba_summ <- toba_summ %>%
-  filter(Age <= age_outs[4])
-
-# histograma de cantidad de registros
-ggplot(data = toba_summ) + geom_histogram(aes(n))
-
-# hay relación entre cantidad de registros y duración?
-ggplot(data = toba_summ) + geom_point(aes(n, Duration))
-
-# decidimos utilizar todos los datos
+  summarise(n = n(),
+            sem = sd(Duration)/sqrt(n),
+            Duration = mean(Duration))
 
 # 4) Gráficos ####
 # Boxplot con marcas de los CI 95% y datos individuales
 ggplot(toba_summ, aes(Group, Duration)) + 
-  geom_boxplot(outliers = F, notch = T) +
-  geom_jitter(aes(color = Gender), width = .1) +
+  geom_boxplot(outliers = F) +
+  geom_jitter(aes(color = Gender), size = 2, alpha = 0.5, width = .1) +
   scale_y_continuous(limits = c(359, 570),
                      breaks = seq(360, 540, 60),
                      labels = seq(6,9,1)) +
@@ -86,13 +69,19 @@ ggplot(toba_summ, aes(Group, Duration)) +
                               unique(toba_summ$Group)[3]))+
   theme_bw()
 
+# Tabla de promedios
+knitr::kable(toba_summ %>% group_by(Group) %>%
+               summarise(Duration_mean = round(mean(Duration)/60, 1),
+                         Duration_sem = round(sd(Duration)/60*sqrt(n()),1)))
+
 # Gráfico de puntos duración vs. edad, por grupos y género
-ggplot(toba_summ, aes(Age, Duration, color = Gender))+
+ggplot(toba_summ %>% filter(Age <40), aes(Age, Duration, color = Gender))+
   geom_point(aes(shape = Group)) +
   geom_smooth(method = "lm") +
-  scale_y_continuous(limits = c(359, 570),
+  scale_y_continuous(limits = c(390, 570),
                      breaks = seq(360, 540, 60),
                      labels = seq(6,9,1)) +
   labs(y = "Sleep duration (h)") +
   theme(legend.position = "top")+
   theme_bw()
+1
