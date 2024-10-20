@@ -1,0 +1,87 @@
+Data from "Moonstruck sleep: Synchronization of Human Sleep with the Moon Cycle under Field Conditions"
+
+Authors: Leandro Casiraghi, Ignacio Spiousas, Gideon P. Dunster, Kaitlyn McGlothlen, Eduardo Fernández-Duque, Claudia Valeggia & Horacio O. de la Iglesia
+
+The data is divided in two big groups: 
+  A - Toba/Qom participants
+  B - University of Washington Participants
+  
+A - Toba/Qom participants
+
+We are providing three datasets with which all the inferences of the manuscript could be replicated.
+  I - Moon data for the periods of interest
+  II - Participant's demographics
+  III - Sleep data for participants
+  
+A-I - Moon data for the periods of interest (Toba/Qom)
+
+File: Moon_data_Toba_Qom.csv
+
+Fields:
+  NightDate: col_date(format = "")* The date of the night for which the data is presented
+  Illu: col_double() -> Illuminated fraction of the mooon's surface in percentage (measured at the astronomical dusk).
+  MoonMins: col_double() -> Minutes of available moonlight after Dusk. The maximum value is set to be 360 minutes (check the manuscript for a detailed explanation of this choice). A minus sign before the number indicates that the moon rose sometime after dusk.
+  Dusk_Time: col_datetime(format = "") Time of astronomical dusk
+  Dawn_Time: col_datetime(format = "") Time of astronomical dawn (on the following morning)
+  DayinCycle: col_double() -> Day in the lunar cycle. Cycles can have 30 or 29 days depending on the when in the first day the peak of new moon is achieved (real lunar month = 29.53 days). DayinCycle =1 indicates the day right after the full moon.
+  
+* Note: The indicated data formats correspond to the ones obtained after reading the csv using read_csv(readr) on the statistical software R. Please take into account that these properties may change when using another software.
+
+A-II - Participant's demographics (Toba/Qom)
+
+File: Demographics_Toba_Qom.csv
+
+Fields:
+  ID: col_character()
+  Gender: col_character()
+  Age: col_double()
+  Group: col_character()
+
+A-III - Sleep data (onset and offset times) for each day and participant (Toba/Qom)
+
+File: Sleep_data_Toba_Qom.csv
+
+Fields:
+  ID: col_character()
+  BoutNumber: col_double() -> Number of the sleep bout (i.e. a way to identify the sleep bout within each subject).
+  Start_Date: col_date(format = "") -> Date in which the sleep bout started.
+  Start_Time: col_time(format = "") -> Time in which the sleep bout started.
+  End_Date: col_date(format = "") -> Date in which the sleep bout started.
+  End_Time: col_time(format = "") -> Time in which the sleep bout ended.
+  Duration: col_double() -> Duration of the sleep bout (in minutes).
+  
+B - University of Washington Participants
+
+B-I - Moon data for the periods of interest for the UW recordings
+
+File: Moon_data_College.csv
+
+Fields:
+  NightDate: col_date(format = "")
+  Holyday: col_logical() -> FALSE if it is a night before working day.
+  Sunrise: col_time(format = "") -> Time of sunrise.
+  Sunset: col_time(format = "") -> Time of sunset.
+  DayinCycle: col_double() -> Day in the lunar cycle.
+  
+* Note: The indicated data formats correpond to the ones obtained after reading the csv using read_csv(readr) on the statistical software R. Please take into account that these properties may change when using another software.
+
+B-II - Participant's demographics (UW)
+
+File: Demographics_College.csv
+
+Fields:
+  ID_number: col_double()
+  Sex: col_character()
+  Ethnicity: col_character()
+  Race: col_character()
+  Age: col_double()
+
+B-III - Sleep data (onset and offset times) for each weekday measured for participants (UW)
+
+File: Sleep_data_College.csv
+
+Fields:
+  ID_number: col_double()
+  DayinCycle: col_double() -> Day in the lunar cycle.
+  Duration: col_double() -> Duration of the sleep bout (in z-scores).
+  Duration: col_double() -> Onset of the sleep bout (in z-scores, measured from sunset time).
