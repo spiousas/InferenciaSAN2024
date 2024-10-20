@@ -7,8 +7,14 @@ MU <- 12
 SD <- 4
 
 set.seed(42)
-bolsa <- tibble(color = c(rep("blanca", N*.6), rep("negra", N*.4)),
-                peso = rnorm(n = N, mean = MU, sd = SD))
+bolsa_aux <- tibble(color = c(rep("blanca", N*.6), rep("negra", N*.4)),
+                    peso = rnorm(n = N, mean = MU, sd = SD))
+
+bolsa <- tibble(color = c(rep("blanca", 40), rep("negra", 60)),
+                peso = c(bolsa_aux$peso[1:58], bolsa_aux$peso[115], bolsa_aux$peso[60:100])) 
+
+mean(round(bolsa$peso,1))
+sd(round(bolsa$peso,1))
 
 bolsa %>%
   ggplot(aes(x = peso)) +

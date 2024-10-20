@@ -128,6 +128,18 @@ S^2 = \frac{\sum_{i=1}^n (x_i - \overline{x})^2}{n-1}
 <p><span class="math display">\[
 \frac{1}{n−1} \sum_{i=1}^n (X_i−\overline{X})(Y_i−\overline{Y})
 \]</span></p>
+<p><span class="math display">\[
+H0: \beta_{Chinstrap} = \beta_{Gentoo} = 0
+\]</span></p>
+<p><span class="math display">\[
+H1: \beta_{Chinstrap} \neq 0 \lor \beta_{Gentoo} \neq 0 \lor \beta_{Chinstrap} \neq 0 \land \beta_{Chinstrap} \neq 0
+\]</span></p>
+<p><span class="math display">\[
+\begin{array}
+_F &amp;=&amp; \frac{(SSR_{restringida}-SSR_{sinrestringir})/(df_{restringida}-df_{sinrestringir})}{SSR_{sinrestringir}/df_{sinrestringir}} \\
+&amp; = &amp; \frac{(SSR_{restringida}-SSR_{sinrestringir})/q}{SSR_{sinrestringir}/(n-k-1)} &amp;\sim F_{df_{restringida}-df_{sinrestringir}, df_{sinrestringir}}
+\end{array}
+\]</span></p>
 </section>
 
 </main>

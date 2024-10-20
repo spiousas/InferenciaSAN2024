@@ -91,3 +91,28 @@ $$
 $$
 \frac{1}{n−1} \sum_{i=1}^n (X_i−\overline{X})(Y_i−\overline{Y})
 $$
+
+$$
+H0: \beta_{Chinstrap} = \beta_{Gentoo} = 0
+$$
+
+$$
+H1: \beta_{Chinstrap} \neq 0 \lor \beta_{Gentoo} \neq 0 \lor \beta_{Chinstrap} \neq 0 \land \beta_{Chinstrap} \neq 0
+$$
+
+$$
+\begin{array}
+_F &=& \frac{(SSR_{restringida}-SSR_{sinrestringir})/(df_{restringida}-df_{sinrestringir})}{SSR_{sinrestringir}/df_{sinrestringir}} \\
+& = & \frac{(SSR_{restringida}-SSR_{sinrestringir})/q}{SSR_{sinrestringir}/(n-k-1)} &\sim F_{df_{restringida}-df_{sinrestringir}, df_{sinrestringir}}
+\end{array}
+$$
+
+$SSR_{restringida}$
+```{r}
+m5_res <- penguins %>% drop_na() %>%
+  lm(body_mass_g ~ bill_depth_mm, .) 
+
+SSR_res <- sum(resid(m5_res)^2)
+SSR_res
+```
+
