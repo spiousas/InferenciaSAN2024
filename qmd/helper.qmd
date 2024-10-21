@@ -107,12 +107,97 @@ _F &=& \frac{(SSR_{restringida}-SSR_{sinrestringir})/(df_{restringida}-df_{sinre
 \end{array}
 $$
 
-$SSR_{restringida}$
-```{r}
-m5_res <- penguins %>% drop_na() %>%
-  lm(body_mass_g ~ bill_depth_mm, .) 
+$$
+\hat{peso} = \hat{\beta_0} + \hat{\beta}_{species} \mathbf{1} _{Chinstrap} + \hat{\beta}_{sex} \mathbf{1} _{male} + \hat{\beta}_{species\, \times \,sex} \mathbf{1} _{Chinstrap, \,male}
+$$
 
-SSR_res <- sum(resid(m5_res)^2)
-SSR_res
-```
+$$
+\mathbf {1} _{male}(sex):=
+  \begin{cases}1~&{\text{ if }}~sex= male~,\\0~&{\text{ if }}~sex\neq male~\end{cases}
+$$
 
+$$
+\mathbf {1} _{Chinstrap}(species):=
+  \begin{cases}1~&{\text{ if }}~species= Chinstrap~,\\0~&{\text{ if }}~species\neq Chinstrap~\end{cases}
+$$
+
+$$
+\mathbf{1} _{Chinstrap, \,male}(sex, species):=
+  \begin{cases}1~&{\text{ if }}~sex = male \land species=Chinstrap~,\\0~&{\text{ if }}~sex\neq male \lor ~ species\neq Chinstrap\end{cases}
+$$
+
+$$
+\hat{peso} = 3368.8 + 158.4 \times \mathbf{1} _{Chinstrap} + 674.7 \times \mathbf{1} _{male} - 262.9 \times \mathbf{1} _{Chinstrap, \,male}
+$$
+
+$$
+\hat{peso} = 3368.8 + 158.4 \times 1 + 674.7 \times 1 - 262.9 \times1 = 3939
+$$
+
+$$
+\hat{peso} = 3368.8 + 158.4 \times 1 + 674.7 \times 0 - 262.9 \times 0 = 3527.2
+$$
+
+
+$$
+\hat{peso} = 3368.8 + 158.4 \times 0 + 674.7 \times 1 - 262.9 \times 0 = 4043.5
+$$
+
+$$
+\hat{peso} = 3368.8 + 158.4 \times 0 + 674.7 \times 0 - 262.9 \times 0 = 3368.8
+$$
+
+$$
+\hat{peso} = -297.4 -124.4 \times \mathbf{1} _{Gentoo} + 218.2 \times bill\,depth - 149.5 \times \mathbf{1} _{Gentoo} \times bill\,depth
+$$
+
+$$
+\begin{array}
+_\hat{peso}_{species=Adelie} &=& -297.4 -124.4 \times 0 + 218.2 \times bill\,depth - 149.5 \times 0 \times bill\,depth \\
+&=& -297.4 + 218.2  \times bill\,depth \\
+\end{array}
+$$
+
+$$
+\begin{array}
+_\hat{peso}_{species=Gentoo} &=& -297.4 -124.4 \times 1 + 218.2 \times bill\,depth - 149.5 \times 1 \times bill\,depth \\
+&=& -297.4 -124.4 + 218.2 \times bill\,depth - 149.5 \times bill\,depth \\
+&=& -421.8 + 68.7 \times bill\,depth \\
+\end{array}
+$$
+
+$$
+\hat{test}_j = \hat\beta_0 + \hat u_0 Z_j+ \hat\beta_{lenght} \times body\,length
+$$
+
+$$
+u_0 \sim \mathcal{N}(0, G_{montaña})
+$$
+
+$$
+\hat{test}_{Bavarian} = \hat\beta_0 + \hat u_{Bavarian} + \hat\beta_{lenght} \times body\,length
+$$
+$$
+\hat{test}_{Central} = \hat\beta_0 + \hat u_{Central} + \hat\beta_{lenght} \times body\,length
+$$
+
+$$
+\hat{test}_j = \hat\beta_0 + \hat u_{montaña} Z_j+ \hat u_{site} R_j+ \hat\beta_{lenght} \times body\,length
+$$
+
+$$
+\begin{array}
+_u_{montaña} &\sim& \mathcal{N}(0, G_{montaña}) \\
+u_{site} &\sim& \mathcal{N}(0, G_{site})
+\end{array}
+$$
+$$
+\hat{test}_j = \hat\beta_0 + \hat u_{montaña} Z_j+ \hat u_{site:montaña} R_j+ \hat\beta_{lenght} \times body\,length
+$$
+
+$$
+\begin{array}
+_u_{montaña} &\sim& \mathcal{N}(0, G_{montaña}) \\
+u_{site:montaña} &\sim& \mathcal{N}(0, G_{site:montaña})
+\end{array}
+$$
