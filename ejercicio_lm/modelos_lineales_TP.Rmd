@@ -2,10 +2,8 @@
 title: "Ejercicios de modelos lineales"
 author: "Spiousas - Casiraghi - Drucaroff"
 date: "`r Sys.Date()`"
-vignette: >
-  %\VignetteIndexEntry{Vignette Title}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+vignette: "%\\VignetteIndexEntry{Vignette Title} %\\VignetteEngine{knitr::rmarkdown}
+  %\\VignetteEncoding{UTF-8}\n"
 ---
 
 ```{r setup, include = FALSE}

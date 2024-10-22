@@ -24,7 +24,10 @@ head(sleep)
 
 # metadata demográfica
 demog <- read_csv("./data/toba_data/Demographics_Toba_Qom.csv") %>%
-  mutate(ID = as.character(ID))
+  mutate(ID = as.character(ID),
+         Group = factor(Group, levels = c("Rural no light", 
+                                          "Rural limited light",
+                                          "Urban")))
 
 head(demog)
 
@@ -64,9 +67,9 @@ ggplot(toba_summ, aes(Group, Duration)) +
                      breaks = seq(360, 540, 60),
                      labels = seq(6,9,1)) +
   labs(y = "Sleep duration (h)") +
-  scale_x_discrete(limits = c(unique(toba_summ$Group)[1],
-                              unique(toba_summ$Group)[2],
-                              unique(toba_summ$Group)[3]))+
+  # scale_x_discrete(limits = c(unique(toba_summ$Group)[1],
+  #                             unique(toba_summ$Group)[2],
+  #                             unique(toba_summ$Group)[3]))+
   theme_bw()
 
 # Tabla de promedios
@@ -84,4 +87,25 @@ ggplot(toba_summ %>% filter(Age <40), aes(Age, Duration, color = Gender))+
   labs(y = "Sleep duration (h)") +
   theme(legend.position = "top")+
   theme_bw()
-1
+
+# Modelo lineal con efectos mixtos ####
+library(lme4)
+library(car)
+lm_crudo <- lm(Duration ~ Age + Gender + Group, 
+                  data = toba_sleep)
+summary(lm_crudo)
+confint(lm_crudo)
+Anova(lm_crudo)
+emmeans::emmeans(lm_crudo, pairwise~Gender,
+                 pbkrtest.limit = 3900,
+                 lmerTest.limit = 3900)
+
+
+lm_mixto <- lmer(Duration ~ Age + Gender + (1|Group) + (1|ID), 
+              data = toba_sleep)
+summary(lm_group)
+confint(lm_group)
+Anova(lm_group)
+emmeans::emmeans(lm_group, pairwise~Gender,
+                 pbkrtest.limit = 3900,
+                 lmerTest.limit = 3900)
