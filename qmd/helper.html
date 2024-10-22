@@ -140,6 +140,80 @@ _F &amp;=&amp; \frac{(SSR_{restringida}-SSR_{sinrestringir})/(df_{restringida}-d
 &amp; = &amp; \frac{(SSR_{restringida}-SSR_{sinrestringir})/q}{SSR_{sinrestringir}/(n-k-1)} &amp;\sim F_{df_{restringida}-df_{sinrestringir}, df_{sinrestringir}}
 \end{array}
 \]</span></p>
+<p><span class="math display">\[
+\hat{peso} = \hat{\beta_0} + \hat{\beta}_{species} \mathbf{1} _{Chinstrap} + \hat{\beta}_{sex} \mathbf{1} _{male} + \hat{\beta}_{species\, \times \,sex} \mathbf{1} _{Chinstrap, \,male}
+\]</span></p>
+<p><span class="math display">\[
+\mathbf {1} _{male}(sex):=
+  \begin{cases}1~&amp;{\text{ if }}~sex= male~,\\0~&amp;{\text{ if }}~sex\neq male~\end{cases}
+\]</span></p>
+<p><span class="math display">\[
+\mathbf {1} _{Chinstrap}(species):=
+  \begin{cases}1~&amp;{\text{ if }}~species= Chinstrap~,\\0~&amp;{\text{ if }}~species\neq Chinstrap~\end{cases}
+\]</span></p>
+<p><span class="math display">\[
+\mathbf{1} _{Chinstrap, \,male}(sex, species):=
+  \begin{cases}1~&amp;{\text{ if }}~sex = male \land species=Chinstrap~,\\0~&amp;{\text{ if }}~sex\neq male \lor ~ species\neq Chinstrap\end{cases}
+\]</span></p>
+<p><span class="math display">\[
+\hat{peso} = 3368.8 + 158.4 \times \mathbf{1} _{Chinstrap} + 674.7 \times \mathbf{1} _{male} - 262.9 \times \mathbf{1} _{Chinstrap, \,male}
+\]</span></p>
+<p><span class="math display">\[
+\hat{peso} = 3368.8 + 158.4 \times 1 + 674.7 \times 1 - 262.9 \times1 = 3939
+\]</span></p>
+<p><span class="math display">\[
+\hat{peso} = 3368.8 + 158.4 \times 1 + 674.7 \times 0 - 262.9 \times 0 = 3527.2
+\]</span></p>
+<p><span class="math display">\[
+\hat{peso} = 3368.8 + 158.4 \times 0 + 674.7 \times 1 - 262.9 \times 0 = 4043.5
+\]</span></p>
+<p><span class="math display">\[
+\hat{peso} = 3368.8 + 158.4 \times 0 + 674.7 \times 0 - 262.9 \times 0 = 3368.8
+\]</span></p>
+<p><span class="math display">\[
+\hat{peso} = -297.4 -124.4 \times \mathbf{1} _{Gentoo} + 218.2 \times bill\,depth - 149.5 \times \mathbf{1} _{Gentoo} \times bill\,depth
+\]</span></p>
+<p><span class="math display">\[
+\begin{array}
+_\hat{peso}_{species=Adelie} &amp;=&amp; -297.4 -124.4 \times 0 + 218.2 \times bill\,depth - 149.5 \times 0 \times bill\,depth \\
+&amp;=&amp; -297.4 + 218.2  \times bill\,depth \\
+\end{array}
+\]</span></p>
+<p><span class="math display">\[
+\begin{array}
+_\hat{peso}_{species=Gentoo} &amp;=&amp; -297.4 -124.4 \times 1 + 218.2 \times bill\,depth - 149.5 \times 1 \times bill\,depth \\
+&amp;=&amp; -297.4 -124.4 + 218.2 \times bill\,depth - 149.5 \times bill\,depth \\
+&amp;=&amp; -421.8 + 68.7 \times bill\,depth \\
+\end{array}
+\]</span></p>
+<p><span class="math display">\[
+\hat{test}_j = \hat\beta_0 + \hat u_0 Z_j+ \hat\beta_{lenght} \times body\,length
+\]</span></p>
+<p><span class="math display">\[
+u_0 \sim \mathcal{N}(0, G_{montaña})
+\]</span></p>
+<p><span class="math display">\[
+\hat{test}_{Bavarian} = \hat\beta_0 + \hat u_{Bavarian} + \hat\beta_{lenght} \times body\,length
+\]</span> <span class="math display">\[
+\hat{test}_{Central} = \hat\beta_0 + \hat u_{Central} + \hat\beta_{lenght} \times body\,length
+\]</span></p>
+<p><span class="math display">\[
+\hat{test}_j = \hat\beta_0 + \hat u_{montaña} Z_j+ \hat u_{site} R_j+ \hat\beta_{lenght} \times body\,length
+\]</span></p>
+<p><span class="math display">\[
+\begin{array}
+_u_{montaña} &amp;\sim&amp; \mathcal{N}(0, G_{montaña}) \\
+u_{site} &amp;\sim&amp; \mathcal{N}(0, G_{site})
+\end{array}
+\]</span> <span class="math display">\[
+\hat{test}_j = \hat\beta_0 + \hat u_{montaña} Z_j+ \hat u_{site:montaña} R_j+ \hat\beta_{lenght} \times body\,length
+\]</span></p>
+<p><span class="math display">\[
+\begin{array}
+_u_{montaña} &amp;\sim&amp; \mathcal{N}(0, G_{montaña}) \\
+u_{site:montaña} &amp;\sim&amp; \mathcal{N}(0, G_{site:montaña})
+\end{array}
+\]</span></p>
 </section>
 
 </main>
