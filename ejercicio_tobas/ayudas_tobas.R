@@ -7,36 +7,40 @@
 # con los valores de promedio y error estándar
 # 4) estudiar la relación entre edad y género con la duración de sueño
 
-pacman::p_load(dplyr, readr, ggplot2, osfr)
-# 1) descargar los datos de OSF ####
+pacman::p_load(dplyr, readr, ggplot2, osfr, lubridate)
+# 1) Descargar y cargar los datos de OSF ####
 # obtengo info del repo de OSF:
 toba_repo <- osf_retrieve_node("https://osf.io/nxtvk/")
 
-toba_files <- osf_ls_files(toba_paper) # lista de archivos
-osf_download(toba_files[c(4:6),], path = "./data/toba_data") # descargo los deseados
+# lista de archivos
+toba_files <- osf_ls_files(toba_paper) 
 
-# 2) cargo los datos ####
-# abrir el archivo de metadata para conocer el contenido de los archivos
+# descargo los deseados
+osf_download(toba_files[c(4:6),], path = "./data/toba_data") 
+
+# Cargo los datos
+# ¡abrir el archivo de metadata para conocer el contenido de los archivos!
 # eventos de sueño
 sleep <- read_csv("./data/toba_data/Sleep_data_Toba_Qom.csv")
-
 head(sleep)
 
 # metadata demográfica
 demog <- read_csv("./data/toba_data/Demographics_Toba_Qom.csv") %>%
-  mutate(ID = as.character(ID))
-
+  mutate(ID = as.character(ID),  # para que matchee con el ID de sleep
+         Group = factor(Group, levels = c("Rural no light",  # para ordenar los niveles
+                                          "Rural limited light",
+                                          "Urban")))
 head(demog)
 
 # creo un tibble unificado
 toba_sleep <- sleep %>%
   right_join(demog) %>% # uno los datos demográficos
-  select(ID, Gender, Age, Group, BoutNumber, Duration)  %>% # selecciono columnas útiles
   na.omit()
-
 head(toba_sleep)
+
 rm(toba_repo, toba_files, sleep, demog)
 
+# 2) opero con los datos ####
 # Tabla resumen demográfico
 knitr::kable(toba_sleep %>% group_by(ID, Gender, Age, Group) %>%
        summarise() %>%
@@ -46,7 +50,6 @@ knitr::kable(toba_sleep %>% group_by(ID, Gender, Age, Group) %>%
             Mean_Age = round(mean(Age),1),
             Female_perc = round(sum(female)/n*100)))
 
-# 3) opero con los datos ####
 
 # resumo la base de datos agrupando por sujetos
 toba_summ <- toba_sleep %>%
@@ -55,7 +58,7 @@ toba_summ <- toba_sleep %>%
             sem = sd(Duration)/sqrt(n),
             Duration = mean(Duration))
 
-# 4) Gráficos ####
+# 3) Gráficos ####
 # Boxplot con marcas de los CI 95% y datos individuales
 ggplot(toba_summ, aes(Group, Duration)) + 
   geom_boxplot(outliers = F) +
@@ -64,9 +67,6 @@ ggplot(toba_summ, aes(Group, Duration)) +
                      breaks = seq(360, 540, 60),
                      labels = seq(6,9,1)) +
   labs(y = "Sleep duration (h)") +
-  scale_x_discrete(limits = c(unique(toba_summ$Group)[1],
-                              unique(toba_summ$Group)[2],
-                              unique(toba_summ$Group)[3]))+
   theme_bw()
 
 # Tabla de promedios
@@ -84,4 +84,57 @@ ggplot(toba_summ %>% filter(Age <40), aes(Age, Duration, color = Gender))+
   labs(y = "Sleep duration (h)") +
   theme(legend.position = "top")+
   theme_bw()
-1
+
+# 4) Modelo lineal con efectos mixtos ####
+library(lme4)
+library(car)
+
+lm_mixto <- lmer(Duration ~ Age + Gender + Group + (1|ID), 
+              data = toba_sleep)
+summary(lm_group)
+confint(lm_group) # 95% CI de los efectos
+Anova(lm_group)
+
+# Contrastes entre grupos
+emmeans::emmeans(lm_group, pairwise~Gender,
+                 pbkrtest.limit = 3900,
+                 lmerTest.limit = 3900)
+
+# 5) Cambios en el sueño a lo largo del fotoperíodo ####
+# Genero una columna con el día del año en términos continuos
+library(lubridate)
+toba_sleep <- toba_sleep %>%
+  mutate(year_date = yday(as.Date(Start_Date, format = "%m/%d/%Y")))
+
+# A ver qué pasa con la duración del sueño
+ggplot(data = toba_sleep, aes(year_date, Duration, color = Group)) +
+  geom_point(alpha = 0.4)+
+  geom_smooth(method = "lm", se = F) + 
+  theme_bw()
+
+modelo_fotoperiodo <- lmer(Duration ~ Group + year_date + Gender + Age +
+                             (1|ID), data = toba_sleep)
+summary(modelo_fotoperiodo)
+confint(modelo_fotoperiodo)
+Anova(modelo_fotoperiodo)
+
+# Y con el horario de dormirse?
+toba_sleep <- toba_sleep %>%
+  mutate(start_time = as.POSIXct(paste(Start_Date, Start_Time),
+                                 format = "%m/%d/%Y %H:%M"),
+         start_hour = as.numeric(difftime(start_time,
+                               round_date(start_time, unit = "day"),
+                               unit = "mins")))
+
+ggplot(data = toba_sleep, aes(year_date, start_hour, color = Group)) +
+  geom_point(alpha = 0.4)+
+  geom_smooth(method = "lm", se = F) + 
+  theme_bw()
+
+
+modelo_fotoperiodo_2 <- lmer(start_hour ~ Group + year_date + Gender + Age +
+                             (1|ID), data = toba_sleep)
+summary(modelo_fotoperiodo_2)
+confint(modelo_fotoperiodo_2)
+Anova(modelo_fotoperiodo_2)
+         
