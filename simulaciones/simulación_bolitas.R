@@ -50,6 +50,45 @@ bolsa %>%
 # }
 # head(muestras)
 
+# set.seed(1234)
+# sample <- sample_n(bolsa, 12, replace = T) %>%
+#   mutate(bolita = 1:12,
+#          grupo = 1,
+#          peso = round(peso,1))
+# for (i in 1:24) {
+#   sample <- sample %>% bind_rows(sample_n(bolsa, 12, replace = T) %>%
+#                                    mutate(bolita = 1:12,
+#                                           grupo = i+1,
+#                                           peso = round(peso,1)))
+# } 
+# sample %>% write_csv("sample.csv")
+
+#sample <- read_csv("data/sample.csv")
+
+sample_3 <- sample %>% 
+  filter(bolita < 4) %>%
+  mutate(n = 3) %>%
+  group_by(n, grupo) %>%
+  summarise(p = mean(color == "negra"),
+            peso = mean(peso))
+
+sample_6 <- sample %>% 
+  filter(bolita < 7) %>%
+  mutate(n = 6) %>%
+  group_by(n, grupo) %>%
+  summarise(p = mean(color == "negra"),
+            peso = mean(peso))
+
+sample_12 <- sample %>% 
+  mutate(n = 12) %>%
+  group_by(n, grupo) %>%
+  summarise(p = mean(color == "negra"),
+            peso = mean(peso))
+
+muestras <- sample_3 %>%
+  bind_rows(sample_6) %>%
+  bind_rows(sample_12)
+
 ## Las proporciones de color ####
 muestras %>%
   group_by(n) %>%

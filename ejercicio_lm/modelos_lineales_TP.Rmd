@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-library(RCurl)
+pacman::p_load(RCurl)
 ```
 
 En este trabajo vamos a poner en práctica los conceptos aprendidos sobre regresión lineal, regresión múltiple e inferencia.

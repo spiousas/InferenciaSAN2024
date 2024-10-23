@@ -201,3 +201,11 @@ _u_{montaña} &\sim& \mathcal{N}(0, G_{montaña}) \\
 u_{site:montaña} &\sim& \mathcal{N}(0, G_{site:montaña})
 \end{array}
 $$
+
+$$
+T_i = \mu + \epsilon_i
+$$
+
+$$
+\epsilon_i \sim \mathcal{N}(0, \sigma^2)
+$$

@@ -1,5 +1,5 @@
 pacman::p_load(tidyverse, modelsummary, palmerpenguins, sjPlot, car, parameters, 
-               performance, modelr, lme4, sjPlot, patchwork, stargazer)
+               performance, modelr, lme4, sjPlot, patchwork)
 
 # Testeemos cositas ####
 # Comparamos las medias de dos grupos

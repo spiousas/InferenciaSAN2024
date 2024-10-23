@@ -285,7 +285,7 @@ model_parameters(m5)
 
 modelsummary(m5)
 
-modelsummary(m5, gof_omit = ".*",
+  modelsummary(m5, gof_omit = ".*",
              statistic = c("conf.int",
                            "p = {p.value}"))
 
